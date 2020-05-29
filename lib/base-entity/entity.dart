@@ -3,8 +3,8 @@ import 'package:sqlentity/database/database-config.dart';
 
 ///Representation of the table inside
 abstract class Entity {
-
   String table;
+  String guid;
   List<Column<String, String, Object>> column;
   List<Column<String, String, int>> columnalter;
   List<Column<String, String, int>> columndelete;
@@ -12,7 +12,7 @@ abstract class Entity {
   DataBaseConfig _dataBaseConfig;
 
   ///set table
-  Entity(this.table) {
+  Entity(this.table, this.guid) {
     _dataBaseConfig = DataBaseConfig();
     column = new List();
     columnalter = new List();
@@ -66,8 +66,8 @@ abstract class Entity {
   ///delete columns
   void _deleteFinal(var name, int versao) {
     for (int i = 0; i < columncreate.length; i++)
-      if (columncreate[i].column == name && _dataBaseConfig.database_version <= versao)
-        columncreate.removeAt(i);
+      if (columncreate[i].column == name &&
+          _dataBaseConfig.database_version <= versao) columncreate.removeAt(i);
   }
 
   ///values columns
